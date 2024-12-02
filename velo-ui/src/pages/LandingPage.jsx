@@ -21,7 +21,7 @@ const features = [
     icon: <CurrencyBitcoinTwoTone sx={{ fontSize: "40px", my: 1 }} />,
     title: "Multiple Cryptocurrencies Supported",
     description:
-      "Diverse Market Access - Trade a variety of cryptocurrencies with ease. Velocity Finance supports multiple tokens, giving you the flexibility to diversify your trading portfolio and capitalize on opportunities across different assets.",
+      "Diverse Market Access - Trade a variety of cryptocurrencies with ease. Velo supports multiple tokens, giving you the flexibility to diversify your trading portfolio and capitalize on opportunities across different assets.",
   },
   {
     icon: <AlignVerticalBottomTwoTone sx={{ fontSize: "40px", my: 1 }} />,
@@ -154,16 +154,16 @@ function LandingPage() {
         }}
       >
         <div className="flex flex-row w-full justify-between items-center">
-          <h1 className="text-4xl leading-snug w-1/2">
-            Leverage Your Gains,
-            <br /> Maximize Your <span className="text-green-400">Returns</span>
-          </h1>
-          <p className="w-1/2">
-            At Velocity Finance, unlock the power of leverage to amplify your profits. Our platform lets you trade with
-            precision, maximizing your returns on every move while managing risk effectively. Trade smarter and reach
-            new profit heights.
-          </p>
-        </div>
+  <h1 className="text-4xl leading-snug w-1/2">
+    Leverage Your Gains,
+    <br /> Maximize Your <span className="text-green-400">Returns</span>
+  </h1>
+  <p className="w-1/2">
+    At Velo, unlock the power of leverage to amplify your profits. Our platform lets you trade with
+    precision, maximizing your returns on every move while managing risk effectively. Trade smarter and reach
+    new profit heights.
+  </p>
+</div>
 
         <div className="grid grid-cols-3 gap-4 mt-10">
           {features.map((feature, index) => (
