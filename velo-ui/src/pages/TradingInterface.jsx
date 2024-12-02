@@ -4,6 +4,46 @@ import TradingViewWidget from '../components/TradingViewWidget';
 import { getSymbolPrice } from '../utils/GetSymbolPrice';
 import { useAccount } from 'wagmi';
 
+// Toast Component
+const Toast = ({ message, type, onClose }) => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      setTimeout(onClose, 300); // Wait for fade animation to complete
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div className={`fixed top-4 right-4 z-50 transition-all duration-300
+      ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
+      ${type === 'long' ? 'bg-green-600' : 'bg-red-600'} 
+      text-white p-4 rounded-lg shadow-lg max-w-md`}>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <div className="ml-3">
+            <p className="text-sm font-medium">Order Placed Successfully!</p>
+            <p className="text-sm opacity-90 mt-1">{message}</p>
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            setIsVisible(false);
+            setTimeout(onClose, 300);
+          }}
+          className="ml-4 text-white hover:text-gray-200"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Rest of your TradingInterface component remains the same
 const symbolMap = {
   'BASEUSD': 'COINBASE:BASE-USD',
   'BTCUSD': 'BINANCE:BTCUSDT',
@@ -25,6 +65,7 @@ const TradingInterface = () => {
   const [tradeType, setTradeType] = useState('long');
   const [amount, setAmount] = useState('');
   const [leverage, setLeverage] = useState('1');
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     const fetchPrice = async () => {
@@ -46,11 +87,23 @@ const TradingInterface = () => {
       alert("Please connect your wallet first");
       return;
     }
+
+    const message = `${tradeType.toUpperCase()} ${amount} USD of ${selectedPair.replace('USD', '')} at ${leverage}x leverage`;
+    setToast({ message, type: tradeType });
+    
     console.log(`Executing ${tradeType} trade for ${amount} ${selectedPair} with ${leverage}x leverage`);
   };
 
   return (
     <div className="min-h-screen bg-black">
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+      
       <div className="container mx-auto pt-20 px-4">
         <div className="flex justify-between items-center mb-6">
           <div className="flex gap-4">
